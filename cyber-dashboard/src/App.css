@@ -2255,3 +2255,159 @@ footer p {
   }
 
 }
+.security-section {
+  position: relative;
+}
+
+.radar-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding: 2rem;
+}
+
+.radar-circle {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,20,60,0.9), rgba(10,8,25,0.95));
+  border: 1px solid rgba(140,170,255,0.25);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.radar-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(140,170,255,0.2);
+  transform: translate(-50%, -50%);
+}
+
+.ring-1 { width: 33%; height: 33%; }
+.ring-2 { width: 66%; height: 66%; }
+.ring-3 { width: 100%; height: 100%; }
+
+.radar-crosshair {
+  position: absolute;
+  background: rgba(140,170,255,0.15);
+}
+
+.radar-crosshair.horizontal {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.radar-crosshair.vertical {
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.radar-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(140,190,255,0.55) 0deg,
+    rgba(140,190,255,0.15) 40deg,
+    transparent 90deg,
+    transparent 360deg
+  );
+  animation: radar-rotate 4s linear infinite;
+}
+
+@keyframes radar-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.radar-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a3c4ff;
+  box-shadow: 0 0 10px rgba(163,196,255,0.9);
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.radar-blip {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.radar-blip.danger {
+  background: #ff5c5c;
+  box-shadow: 0 0 8px rgba(255,92,92,0.9);
+}
+
+.radar-blip.safe {
+  background: #5cffb0;
+  box-shadow: 0 0 8px rgba(92,255,176,0.9);
+}
+
+.blip-ping {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  color: inherit;
+  animation: blip-ping-anim 2.4s ease-out infinite;
+}
+
+@keyframes blip-ping-anim {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.radar-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.radar-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.safe-text {
+  color: #5cffb0;
+}

@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
+
 import "./App.css";
 import Navbar from "./components/Navbar";
+import React, { useEffect, useState, useMemo } from "react";
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
-
+const threatBlips = useMemo(() => {
+    return Array.from({ length: 6 }).map((_, i) => {
+      const angle = Math.random() * 360;
+      const distance = 20 + Math.random() * 70;
+      return {
+        id: i,
+        top: 50 + distance * Math.sin((angle * Math.PI) / 180) * 0.5,
+        left: 50 + distance * Math.cos((angle * Math.PI) / 180) * 0.5,
+        delay: Math.random() * 4,
+        threat: Math.random() > 0.5,
+      };
+    });
+  }, []);
   /* =====================================================
      ACTIVE SECTION
      ===================================================== */
@@ -612,8 +625,90 @@ function App() {
           </div>
 
         </section>
+{/* =================================================
+    LIVE THREAT RADAR
+    ================================================= */}
+
+<section
+  id="security"
+  className="section reveal security-section"
+>
+
+  <div className="section-heading">
+
+    <span>🛰️</span>
+
+    <div>
+
+      <small>
+        LIVE MONITORING
+      </small>
+
+      <h2>
+        THREAT RADAR
+      </h2>
+
+    </div>
+
+  </div>
 
 
+  <div className="radar-panel">
+
+    <div className="radar-circle">
+
+      <div className="radar-ring ring-1"></div>
+      <div className="radar-ring ring-2"></div>
+      <div className="radar-ring ring-3"></div>
+
+      <div className="radar-crosshair horizontal"></div>
+      <div className="radar-crosshair vertical"></div>
+
+      <div className="radar-sweep"></div>
+
+      {threatBlips.map((blip) => (
+
+        <div
+          key={blip.id}
+          className={`radar-blip ${blip.threat ? "danger" : "safe"}`}
+          style={{
+            top: `${blip.top}%`,
+            left: `${blip.left}%`,
+            animationDelay: `${blip.delay}s`,
+          }}
+        >
+          <span className="blip-ping"></span>
+        </div>
+
+      ))}
+
+      <div className="radar-center"></div>
+
+    </div>
+
+
+    <div className="radar-stats">
+
+      <div className="radar-stat">
+        <span className="stat-label">STATUS</span>
+        <span className="stat-value safe-text">SECURE</span>
+      </div>
+
+      <div className="radar-stat">
+        <span className="stat-label">SCANS ACTIVE</span>
+        <span className="stat-value">24/7</span>
+      </div>
+
+      <div className="radar-stat">
+        <span className="stat-label">THREATS BLOCKED</span>
+        <span className="stat-value">1,204</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
         {/* =================================================
             PROJECTS
             ================================================= */}
@@ -1045,19 +1140,19 @@ function App() {
               </p>
 
 
-              <a href="mailto:your-email@example.com">
+              <a href="mailto:your-bhattdhruv115@gmail.com">
 
                 <span>
                   EMAIL
                 </span>
 
-                your-email@example.com
+                your-bhattdhruv115@gmail.com
 
               </a>
 
 
               <a
-                href="https://github.com/"
+                href="https://github.com/bhattdhruv115-cell/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -1072,7 +1167,7 @@ function App() {
 
 
               <a
-                href="https://linkedin.com/"
+                href="https://www.linkedin.com/in/dhruv-bhatt-301913326/?skipRedirect=true"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -1081,7 +1176,7 @@ function App() {
                   LINKEDIN
                 </span>
 
-                linkedin.com
+                https://www.linkedin.com/in/dhruv-bhatt-301913326/?skipRedirect=true
 
               </a>
 
@@ -1124,7 +1219,7 @@ function App() {
                 </p>
 
                 <a
-                  href="mailto:your-email@example.com"
+                  href="mailto:bhattdhruv115@gmail.com"
                   className="terminal-button"
                 >
                   [ START CONNECTION ]
