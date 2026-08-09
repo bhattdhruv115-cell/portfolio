@@ -1,5 +1,20 @@
 import { Link } from "react-router-dom";
 import { TiltCard } from "../components/Shared";
+import { useEffect, useState } from "react";
+
+function useTypewriter(text, speed = 80) {
+  const [display, setDisplay] = useState("");
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setDisplay(text.slice(0, i + 1));
+      i++;
+      if (i === text.length) clearInterval(interval);
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed]);
+  return display;
+}
 
 const SKILLS = [
   "Windows 10/11",
@@ -17,12 +32,15 @@ const SKILLS = [
 ];
 
 export default function Home() {
+  const typed = useTypewriter("Dhruv Bhatt", 90);
+
   return (
     <div className="page">
       <section className="hero">
         <div className="hero-tag">Welcome to my portfolio</div>
         <h1 className="hero-title">
-          Hi, I'm <span className="glow-text">Dhruv Bhatt</span>
+          Hi, I'm <span className="glow-text">{typed}</span>
+          <span className="typing-cursor"></span>
         </h1>
         <p className="hero-role">Computer Science Student · IT Support & Cybersecurity</p>
         <p className="hero-bio">
